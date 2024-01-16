@@ -58,5 +58,14 @@ class InstallPaymentsCommand extends Command
                 'name' => 'Stripe',
                 'active' => false,
             ]);
+
+        PaymentMethod::query()
+            ->firstOrCreate([
+                'driver' => PaymentDriverEnum::yookassa,
+                'driver_currency_id' => Currency::MAIN
+            ],[
+                'name' => 'Yookassa',
+                'active' => false,
+            ]);
     }
 }

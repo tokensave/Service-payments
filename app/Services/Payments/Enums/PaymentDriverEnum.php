@@ -7,6 +7,7 @@ enum PaymentDriverEnum: string
     case test = 'test';
     case tinkoff = 'tinkoff';
     case stripe = 'stripe';
+    case yookassa = 'yookassa';
 
 
     public function name(): string
@@ -15,6 +16,7 @@ enum PaymentDriverEnum: string
             self::test => 'Тестовый провайдер',
             self::tinkoff => 'Tinkoff',
             self::stripe => 'Stripe',
+            self::yookassa => 'Yookassa',
         };
     }
 

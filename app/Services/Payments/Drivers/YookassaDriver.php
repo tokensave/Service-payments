@@ -23,11 +23,11 @@ class YookassaDriver extends PaymentDriver
                 ],
                 'confirmation' => [
                     'type' => 'redirect',
-                    'return_url' => "https://webhook.site/a99e5cc9-2425-4927-ad88-3694bbb4b0c7",
+                    'return_url' => route('payments.success', ['uuid' => $payment->uuid]),
                 ],
-                'capture' => false,
-                'description' => $payment->uuid,
-        ], uniqid('', true));
+                'capture' => true,
+                'metadata' => ['uuid' => $payment->uuid,],
+            ], uniqid('', true));
 
         return view('payments::yookassa',
             [

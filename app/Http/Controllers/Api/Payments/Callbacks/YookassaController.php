@@ -15,7 +15,7 @@ class YookassaController extends Controller
     public function __invoke(Request $request, PaymentService $payments)
     {
         $data = $request->all();
-        Log::debug('data', $data);
+
         $payment = $payments->getPayments()
             ->uuid($data['object']['metadata']['uuid'])
             ->first();

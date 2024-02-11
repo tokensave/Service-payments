@@ -147,7 +147,12 @@ return [
     'uppercase'            => 'Значение поля :attribute должно быть в верхнем регистре.',
     'url'                  => 'Значение поля :attribute имеет ошибочный формат URL.',
     'uuid'                 => 'Значение поля :attribute должно быть корректным UUID.',
-    'attributes' => [
-        'method_id' => 'способ оплаты'
-    ]
+    'attributes'           => [
+        'method_id' => 'способ оплаты',
+        'first_name' => 'имя',
+        'agreement' => 'соглашение',
+        'password' => 'пароль',
+        'email' => 'электронная почта'
+
+    ],
 ];

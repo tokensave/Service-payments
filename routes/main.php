@@ -3,11 +3,13 @@
 use App\Http\Controllers\CurrencyController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\SubscriptionController;
 use Illuminate\Support\Facades\Route;
 
-
-Route::redirect('/', '/orders')->name('home');
+Route::view('/registration', 'registration.index')->name('registration');
+Route::post('/registration', [RegistrationController::class, 'store'])->name('registration.store');
+Route::redirect('/', '/registration');
 Route::get('currency/{currency}', CurrencyController::class)->name('currency');
 
 
@@ -30,3 +32,5 @@ Route::post('payments/{payment:uuid}/complete', [PaymentController::class, 'comp
 Route::post('payments/{payment:uuid}/cancel', [PaymentController::class, 'cancel'])->name('payments.cancel');
 Route::get('payments/success', [PaymentController::class, 'success'])->name('payments.success');
 Route::get('payments/failure', [PaymentController::class, 'failure'])->name('payments.failure');
+
+

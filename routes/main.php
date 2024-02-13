@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CurrencyController;
+use App\Http\Controllers\LoginController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\RegistrationController;
@@ -9,6 +10,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::view('/registration', 'registration.index')->name('registration');
 Route::post('/registration', [RegistrationController::class, 'store'])->name('registration.store');
+
+Route::view('/login', 'login.index')->name('login');
+Route::post('/login', [LoginController::class, 'store'])->name('login.store');
+
 Route::redirect('/', '/registration');
 Route::get('currency/{currency}', CurrencyController::class)->name('currency');
 

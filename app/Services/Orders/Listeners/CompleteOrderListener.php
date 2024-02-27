@@ -2,6 +2,8 @@
 
 namespace App\Services\Orders\Listeners;
 
+use App\Events\NotificationInTelegramEvent;
+use App\Notifications\Telegram\Telegram;
 use App\Services\Orders\Models\Order;
 use App\Services\Orders\OrderService;
 use App\Services\Payments\Events\PaymentCompletedEvent;
@@ -21,19 +23,18 @@ class CompleteOrderListener
      */
     public function handle(PaymentCompletedEvent $event): void
     {
-       $payableType = $event->data->payableType;
-       $payableId = $event->data->payableId;
+        $payableType = $event->data->payableType;
+        $payableId = $event->data->payableId;
 
-       if ($payableType !== (new Order)->getPayableType()){
-           return;
-       }
+        if ($payableType !== (new Order)->getPayableType()) {
+            return;
+        }
 
-       if ($order = Order::query()->find($payableId))
-       {
-           $this->orderService->completeOrder()->run($order);
-       }
-       else{
-           throw new Exception();
-       }
+        if ($order = Order::query()->find($payableId)) {
+            $this->orderService->completeOrder()->run($order);
+            event(new NotificationInTelegramEvent($payableType, $order->uuid, $event->data->driver));
+        } else {
+            throw new Exception();
+        }
     }
 }

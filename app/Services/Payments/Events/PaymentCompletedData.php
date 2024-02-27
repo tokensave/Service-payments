@@ -10,7 +10,7 @@ class PaymentCompletedData
         public string $uuid,
         public string $payableType,
         public string $payableId,
-
+        public string $driver
     )
     {
 
@@ -22,6 +22,7 @@ class PaymentCompletedData
             uuid: $payment->uuid,
             payableType: $payment->payable_type,
             payableId: $payment->payable_id,
+            driver: $payment->driver->name
         );
     }
 }

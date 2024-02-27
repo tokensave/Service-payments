@@ -18,6 +18,7 @@ class User extends Authenticatable
         'middle_name',
         'email',
         'password',
+        'online_at',
     ];
 
     protected $hidden = [
@@ -27,5 +28,6 @@ class User extends Authenticatable
 
     protected $casts = [
         'password' => 'hashed',
+        'online_at' => 'datetime'
     ];
 }

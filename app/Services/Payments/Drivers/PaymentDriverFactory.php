@@ -14,6 +14,8 @@ class PaymentDriverFactory
             PaymentDriverEnum::test => app(TestPaymentDriver::class),
             PaymentDriverEnum::tinkoff => app(TinkoffDriver::class),
             PaymentDriverEnum::stripe => app(StripeDriver::class),
+            PaymentDriverEnum::yookassa => app(YookassaDriver::class),
+
 
             default => throw new InvalidArgumentException(
                 "Драйвер [{$driver}] не поддерживается"

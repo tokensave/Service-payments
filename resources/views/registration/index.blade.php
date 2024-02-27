@@ -1,4 +1,4 @@
-<x-layouts.auth xmlns:x-slot="http://www.w3.org/1999/xhtml">
+<x-layouts.auth>
 
     <x-slot:title>
         Регистрация

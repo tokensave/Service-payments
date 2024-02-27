@@ -13,9 +13,9 @@ class CreateAdminUserCommand extends Command
     public function handle()
     {
         $user = new User();
-        $user->first_name = $this->ask('Имя', 'Roman');
+        $user->first_name = $this->ask('Имя', 'Admin');
         $user->email = $this->ask('Email', 'test@foo.bar');
-        $user->password = $this->ask('Пароль', '1234567890');
+        $user->password = $this->ask('Пароль', '12345secret');
         $user->save();
 
         $this->info('Админ создан');

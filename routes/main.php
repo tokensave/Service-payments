@@ -1,13 +1,33 @@
 <?php
 
 use App\Http\Controllers\CurrencyController;
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\SubscriptionController;
+use App\Http\Controllers\User\SettingsController;
+use App\Http\Middleware\AuthMiddleware;
 use Illuminate\Support\Facades\Route;
 
+Route::redirect('/', '/registration');
 
-Route::redirect('/', '/orders')->name('home');
+Route::middleware('guest')->group(function () {
+    Route::view('/registration', 'registration.index')->name('registration');
+    Route::post('/registration', [RegistrationController::class, 'store'])->name('registration.store');
+
+    Route::view('/login', 'login.index')->name('login');
+    Route::post('/login', [LoginController::class, 'store'])->name('login.store');
+});
+
+Route::post('/logout', [LogoutController::class, 'logout'])->name('logout')->middleware('auth');
+
+Route::middleware(['auth', 'online'])->group(function () {
+    Route::redirect('/user', '/user/settings')->name('user');
+    Route::get('/user/settings', [SettingsController::class, 'index'])->name('user.settings');
+});
+
 Route::get('currency/{currency}', CurrencyController::class)->name('currency');
 
 
@@ -30,3 +50,5 @@ Route::post('payments/{payment:uuid}/complete', [PaymentController::class, 'comp
 Route::post('payments/{payment:uuid}/cancel', [PaymentController::class, 'cancel'])->name('payments.cancel');
 Route::get('payments/success', [PaymentController::class, 'success'])->name('payments.success');
 Route::get('payments/failure', [PaymentController::class, 'failure'])->name('payments.failure');
+
+

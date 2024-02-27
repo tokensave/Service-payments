@@ -2,6 +2,7 @@
 
 namespace App\Services\Subscriptions\Listeners;
 
+use App\Events\NotificationInTelegramEvent;
 use App\Services\Payments\Events\PaymentCompletedEvent;
 use App\Services\Subscriptions\Enums\SubscriptionStatusEnum;
 use App\Services\Subscriptions\Models\Subscription;
@@ -21,16 +22,17 @@ class ActivateSubscriptionListener implements ShouldQueue
         $payableType = $event->data->payableType;
         $payableId = $event->data->payableId;
 
-        if($payableType !== (new Subscription)->getPayableType()){
+        if ($payableType !== (new Subscription)->getPayableType()) {
             return;
-            }
+        }
 
         $subscription = Subscription::query()->find($payableId);
 
-        if (is_null($subscription)){
+        if (is_null($subscription)) {
             return;
         }
 
         $subscription->update(['status' => SubscriptionStatusEnum::active]);
+        event(new NotificationInTelegramEvent($payableType, $subscription->uuid, $event->data->driver));
     }
 }

@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Adapters\CurrencyPaymentConverter;
 use App\Services\Payments\Contracts\PaymentConverter;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Validation\Rules\Password;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -22,5 +23,11 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         bcscale(2);
+        Password::defaults( function ()
+        {
+            return Password::min(8)
+                ->letters()
+                ->numbers();
+        });
     }
 }

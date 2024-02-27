@@ -21,3 +21,10 @@ test card tinkoff
 
 3.
 4000 0000 0000 0119 11/22 111
+
+test card yookassa
+1.Success
+555 5555 5555 54477
+
+2.Fail
+5555 5555 5555 4444

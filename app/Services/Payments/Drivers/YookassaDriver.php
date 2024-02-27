@@ -23,7 +23,7 @@ class YookassaDriver extends PaymentDriver
                 ],
                 'confirmation' => [
                     'type' => 'redirect',
-                    'return_url' => route('home'),
+                    'return_url' => route('orders'),
                 ],
                 'capture' => true,
                 'metadata' => ['uuid' => $payment->uuid,],

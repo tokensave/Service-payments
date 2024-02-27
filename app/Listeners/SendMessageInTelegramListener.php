@@ -24,7 +24,7 @@ class SendMessageInTelegramListener
      */
     public function handle(NotificationInTelegramEvent $event): void
     {
-        $notification = new Telegram($this->token);
+        $notification = new Telegram($this->token, $this->chat_id);
         $notification->send('The '. $event->payable_type .' '. $event->uuid .' was paid by '. $event->driver .'. Check it!', ["to" => $this->chat_id]);
     }
 }

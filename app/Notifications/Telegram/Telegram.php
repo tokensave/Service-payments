@@ -8,22 +8,24 @@ use Illuminate\Support\Facades\Http;
 class Telegram
 {
     private $token;
+    private $chat_id;
 
-    public function __construct($token)
+    public function __construct($token, $chat_id)
     {
         $this->token = $token;
+        $this->chat_id = $chat_id;
     }
 
     /**
      * @throws Exception
      */
-    public function send($message, $params = []): void
+    public function send($message): void
     {
         $url = "https://api.telegram.org/bot" . $this->token . "/sendMessage";
 
         $params =
             [
-                'chat_id' => $params['to'],
+                'chat_id' => $this->chat_id,
                 "text" => $message,
                 "parse_mode" => "HTML",
                 "disable_web_page_preview" => true
@@ -35,10 +37,4 @@ class Telegram
             throw new Exception($result['description'], $result['error_code']);
         }
     }
-
-//    public function send()
-//    {
-//
-////
-//    }
 }
